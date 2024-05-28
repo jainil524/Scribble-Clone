@@ -1,8 +1,8 @@
 package GameBoard;
 
 import ScribbleExceptions.NoSuchGameBoardException;
+import Server.GameBoard.GameServer;
 import Player.Player;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 import java.util.concurrent.ConcurrentHashMap;
@@ -10,6 +10,8 @@ import java.util.concurrent.ConcurrentHashMap;
 public class GameBoardManager{
     private static GameBoardManager gameboardManager = new GameBoardManager();
     private static Map<String, GameBoard> AllGameBoard = new ConcurrentHashMap<String, GameBoard>();
+    
+    public GameServer gs = new GameServer();
 
     synchronized public GameBoard addGameBoard(){
         String key = generateRandomKey(6);
@@ -68,10 +70,12 @@ public class GameBoardManager{
         throw new NoSuchGameBoardException();
     }
 
-    private GameBoardManager(){}
+    private GameBoardManager(){
+        new Thread(gs).start();
+    }
 
     public static GameBoardManager getGameBoardManagerInstace(){
-            return gameboardManager;
+        return gameboardManager;
     }
 
 

@@ -1,13 +1,11 @@
 package GameBoard;
 
 import Player.PlayerManager;
-import Server.GameBoard.GameServer;
 
 public class GameBoard {
 
     public static final int ScoreToAddRemove = 30;
-    public GameServer gs = new GameServer();
-    private String GameBoardID = "";
+    private String GameBoardID = null;
     private GameState gamestate = GameState.WAITING_FOR_PLAYERS;
     private PlayerManager playermanager = new PlayerManager();
 
@@ -24,7 +22,6 @@ public class GameBoard {
 
     private GameBoard(String gameBoardID)
     {
-        new Thread(gs).start();
         this.GameBoardID = gameBoardID;
     }
 
